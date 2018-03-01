@@ -318,27 +318,14 @@ public func routes(_ router: Router) throws  {
             
             let data = try req.content.decode(JSONArray.self).await(on: req)
             
-            
             var postArray = [Post]()
-            
-            
             
             // Puts the Post objects form the JsonArray into a Post[]
             for post in data.inList.indices {
-                
                 postArray.append(data.inList[post])
-                
             }
-            
-            
             // Creates a Queue to hold the Posts
             var queue = PriorityQueue<Post>(sort: <)
-            
-            
-            
-            // Creates a Post[] to store the commands
-           
-            var remainingElements = [Post]()
             
             // Adds all the elements in the Post[] to the Queue in-memory
             for elements in postArray.indices{
@@ -348,36 +335,15 @@ public func routes(_ router: Router) throws  {
                     queue.dequeue()
                 }
             }
-            
+            // Creates a string for outList Init
             var blankString = [String]()
             
-            
+            // Adds the name of the jobs remaining to the queue to the outList String[]
             while(queue.isEmpty == false){
                 blankString.append((queue.dequeue()?.name)!)
             }
-            
+            // Creates an OutList instance to output Response
             let outList = OutList(outList: blankString)
-            
-            
-            
-            
-//            for _ in 0...queue.count{
-//                outList.outList.append((queue.dequeue()?.name)!)
-//            }
-            
-      
-            
-            // Place the rest of the elements in an Array
-//            while(queue.isEmpty == false){
-//                remainingElements.append(queue.dequeue()!)
-//            }
-
-
-
-//            for elements in remainingElements.indices{
-//                outList.job.append(remainingElements[elements].name!)
-//            }
-            
         
             return outList
     }
